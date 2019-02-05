@@ -29,12 +29,12 @@ namespace efiilj
 
 		bool Validate(std::string input);
 
-		template<typename T>
-		typename std::enable_if<std::is_arithmetic<T>::value>::type
+		template<typename U = T>
+		typename std::enable_if<std::is_arithmetic<U>::value, bool>::type
 			TestLimits() { return (_value >= _min && _value <= _max); }
 
-		template<typename T>
-		typename std::enable_if<!std::is_arithmetic<T>::value>::type
+		template<typename U = T>
+		typename std::enable_if<!std::is_arithmetic<U>::value, bool>::type
 			TestLimits() { return true; }
 
 	public:

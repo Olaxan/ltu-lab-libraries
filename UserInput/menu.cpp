@@ -29,7 +29,7 @@ namespace efiilj
 			if (input.Show())
 			{
 				std::cout << "\n";
-				if (select == 0 || _items[select - 1].Invoke())
+				if (input.Value() == 0 || _items[input.Value() - 1].Invoke())
 					return true;
 			}
 			else return false;
