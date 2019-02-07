@@ -31,7 +31,7 @@ namespace efiilj
 	}
 
 	template <typename T>
-	T SortedArray<T>::GetAt(int index)
+	T SortedArray<T>::GetAt(int index) const
 	{
 		return _items[index];
 	}
@@ -46,7 +46,7 @@ namespace efiilj
 	}
 
 	template <typename T>
-	int SortedArray<T>::Find(T value)
+	int SortedArray<T>::Find(T value) const
 	{
 		int upper = _count - 1;
 		int lower = 0;
@@ -69,7 +69,7 @@ namespace efiilj
 	}
 
 	template <typename T>
-	bool SortedArray<T>::Exists(T value)
+	bool SortedArray<T>::Exists(T value) const
 	{
 		return (Find(value) != -1);
 	}
@@ -101,8 +101,14 @@ namespace efiilj
 		}
 	}
 
+	template<typename T>
+	inline void SortedArray<T>::Remove(int index)
+	{
+		Remove(GetAt(index));
+	}
+
 	template <typename T>
-	std::string SortedArray<T>::ToString()
+	std::string SortedArray<T>::ToString() const
 	{
 		std::stringstream ss;
 		ss << "[";
@@ -120,7 +126,7 @@ namespace efiilj
 	}
 
 	template <typename T>
-	int SortedArray<T>::Count()
+	int SortedArray<T>::Count() const
 	{
 		return _count;
 	}

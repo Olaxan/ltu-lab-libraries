@@ -58,6 +58,8 @@ namespace efiilj
 			_max = max;
 		}
 
+		std::string exit;
+
 		bool Show();
 
 		T Value() { return _value; };

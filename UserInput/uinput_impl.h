@@ -21,14 +21,14 @@ namespace efiilj
 	template<typename T>
 	UserInput<T>::UserInput(std::string query, std::string prompt) : _query(query), _prompt(prompt)
 	{
-		static_assert(is_stream_extractable<std::stringstream, T>, "Type is not streamable");
+		//static_assert(is_stream_extractable<std::stringstream, T>, "Type is not streamable");
 
 		_state = false;
 	}
 
 	template<typename T>
 	template<typename>
-	inline UserInput<T>::UserInput(std::string query, std::string prompt, T min, T max)
+	inline UserInput<T>::UserInput(std::string query, std::string prompt, T min, T max) : _query(query), _prompt(prompt)
 	{
 		Limits(min, max);
 	}
@@ -38,21 +38,28 @@ namespace efiilj
 	{
 		std::string input;
 
-		std::cout << _query << "\nCtrl + Z to abort.\n";
+		std::cout << _query;
+
+		if (exit != "")
+			std::cout << " ('" << exit << "' to exit)";
+		std::cout << "\n" << _prompt;
 
 		while (true)
 		{
-			std::cout << _prompt;
 			std::getline(std::cin, input);
 
 			if (input.length() == 0)
 				continue;
 
-			if (input[0] == std::char_traits<char>::eof())
+			if (input == exit)
 				return false;
 
 			if (Validate(input) && TestLimits())
 				return true;
+
+			std::cout << "Invalid input - enter '" << typeid(T).name() << "'";
+			if (!TestLimits()) std::cout << " between " << _min << " and " << _max;
+			std::cout << ": ";
 		}
 	}
 

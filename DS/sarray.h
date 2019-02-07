@@ -14,7 +14,7 @@ namespace efiilj
 
 		void AddAt(int index, T value);
 		void RemoveAt(int index);
-		T GetAt(int index);
+		T GetAt(int index) const;
 
 		void Resize(int newSize);
 
@@ -30,16 +30,16 @@ namespace efiilj
 		//Default: false - items in ascending order.
 		bool descending = false;
 
-		int	Find(T value);
-		bool Exists(T value);
+		int	Find(T value) const;
+		bool Exists(T value) const;
 		void Insert(T value);
 		void Remove(T value);
+		void Remove(int index);
 
-		std::string ToString();
+		std::string ToString() const;
+		int Count() const;
 
-		T operator [] (int index) { return GetAt(index); }
-
-		int Count();
+		T operator [] (int index) const { return GetAt(index); }
 
 		~SortedArray() { delete[] _items; }
 

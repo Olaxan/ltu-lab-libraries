@@ -15,14 +15,14 @@ namespace efiilj
 
 		while (true)
 		{
-			if (title.length() > 0)
+			if (title != "")
 			{
 				std::cout << title << "\n\n";
 			}
 
 			ListItems();
 			
-			UserInput<int> input = UserInput<int>("", ">", 1 - allowExit, _items.size());
+			UserInput<int> input = UserInput<int>("", prompt, 1 - allowExit, _items.size());
 
 			if (input.Show())
 			{
