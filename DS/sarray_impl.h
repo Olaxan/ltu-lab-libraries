@@ -17,7 +17,7 @@ namespace efiilj
 	template <typename T>
 	void SortedArray<T>::AddAt(int index, T value)
 	{
-		//Expand array by one, and move existing elements as required.
+		///Expand array by one, and move existing elements as required. Then, add new element.
 		Resize(_count + 1);
 		memmove(_items + index + 1, _items + index, sizeof(T) * (_count - index));
 		_items[index] = value;
@@ -27,7 +27,7 @@ namespace efiilj
 	template <typename T>
 	void SortedArray<T>::RemoveAt(int index)
 	{
-		//Shift elements to cover deleted element.
+		///Shift elements to cover deleted element.
 		memmove(_items + index, _items + index + 1, sizeof(T) * (_count - index));
 		_count--;
 	}
@@ -41,7 +41,7 @@ namespace efiilj
 	template <typename T>
 	void SortedArray<T>::Resize(int newSize)
 	{
-		//Create a new array of requsted size, and copy elements over from old array.
+		///Create a new array of requsted size, and copy elements over from old array.
 		T* _new = new T[newSize];
 		memcpy_s(_new, newSize * sizeof(T), _items, _count * sizeof(T));
 		delete[] _items;
@@ -51,6 +51,8 @@ namespace efiilj
 	template <typename T>
 	int SortedArray<T>::Find(T value) const
 	{
+		///Find element in array by value, and return index.
+
 		int upper = _count - 1;
 		int lower = 0;
 		int mid;
@@ -96,7 +98,7 @@ namespace efiilj
 	template <typename T>
 	void SortedArray<T>::Remove(T value)
 	{
-		//Go through array and remove matching elements.
+		///Go through array and remove matching elements.
 		//TODO: Pass-by-reference, implement binary search.
 
 		for (int i = 0; i < _count;)
