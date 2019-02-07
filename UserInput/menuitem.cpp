@@ -9,6 +9,7 @@ namespace std
 	{
 		size_t operator()(const efiilj::Menu::MenuItem& i) const
 		{
+			//Return hash of all (important) fields.
 			return hash<string>()(i.name);
 		}
 	};
@@ -22,6 +23,7 @@ namespace efiilj
 
 	bool Menu::MenuItem::Invoke() const
 	{
+		///Execute menu option - show submenu if one, otherwise run provided function.
 		if (hasSubmenu)
 		{
 			this->subMenu->Show();

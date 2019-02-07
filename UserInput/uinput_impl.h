@@ -10,6 +10,7 @@ namespace efiilj
 	template<typename T>
 	bool UserInput<T>::Validate(std::string input)
 	{
+		//Use stringstream to check if type conversion is valid.
 		std::stringstream ss;
 		ss << input;
 		ss >> _value;
@@ -22,6 +23,9 @@ namespace efiilj
 	UserInput<T>::UserInput(std::string query, std::string prompt) : _query(query), _prompt(prompt)
 	{
 		//static_assert(is_stream_extractable<std::stringstream, T>, "Type is not streamable");
+		//Assertion is not currently working.
+		//Supposed to give a more understandable error message when compiled for an invalid type (non-stringstream convertible).
+		//Compilation fails regardless, but with a weird error message.
 
 		_state = false;
 	}
@@ -36,6 +40,8 @@ namespace efiilj
 	template<typename T>
 	inline bool UserInput<T>::Show()
 	{
+		//Show the query until a valid input is given, or user exits with exit string.
+
 		std::string input;
 
 		std::cout << _query;

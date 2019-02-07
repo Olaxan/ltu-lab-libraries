@@ -11,6 +11,8 @@ namespace efiilj
 
 	bool Menu::Show() const
 	{
+		///Show menu, loop until the user exits from the top-level menu.
+
 		std::cout << "\n";
 
 		while (true)
@@ -27,7 +29,7 @@ namespace efiilj
 			if (input.Show())
 			{
 				std::cout << "\n";
-				if (input.Value() == 0 || _items[input.Value() - 1].Invoke())
+				if (input.Value() == 0 || _items[input.Value() - 1].Invoke()) //Invoke menu item, depending on type (submenu/function pointer).
 					return true;
 			}
 			else return false;

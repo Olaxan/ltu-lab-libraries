@@ -49,6 +49,7 @@ namespace efiilj
 
 }
 
+//Include template implementation file (for organization purposes).
 #include "lnklist_d_impl.h"
 
 

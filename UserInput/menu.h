@@ -35,21 +35,21 @@ namespace efiilj
 	public:
 		Menu(std::string title = "", std::string prompt = "> ");
 
-		std::string title;
-		std::string prompt;
+		std::string title;	//Menu title
+		std::string prompt;	//Menu prompt
 		
-		bool allowExit = true;
+		bool allowExit = true;	//Allow exit with '0'.
 
-		void AddItem(std::string name, bool(*func)());
-		void AddItem(std::string name, Menu* subMenu);
-		void RemoveItem(std::string item);
+		void AddItem(std::string name, bool(*func)());	//Add a function pointer to the menu.
+		void AddItem(std::string name, Menu* subMenu);	//Add a submenu to the menu.
+		void RemoveItem(std::string item); //TODO?
 		void ListItems() const;
 		
-		bool Show() const;
+		bool Show() const;	//Show menu, loop until the user exits from the top-level menu.
 
 		~Menu();
 
-		//This is probably very bad
+		//Required to implement hashing function.
 		friend std::hash<MenuItem>;
 	};
 

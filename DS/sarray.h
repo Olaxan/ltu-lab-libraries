@@ -47,5 +47,6 @@ namespace efiilj
 
 }
 
+//Include template implementation file (for organization purposes).
 #include "sarray_impl.h"
 

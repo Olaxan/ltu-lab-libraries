@@ -12,13 +12,16 @@ namespace efiilj
 	template<typename T>
 	void DoublyLinkedList<T>::Insert(T val)
 	{
+
 		Node* n = new Node(val);
 
-		if (_head != nullptr)
+		if (_count > 0) //If the list isn't empty...
 		{
-			_head->_next = n;
-			n->_prev = _head;
+			_head->_next = n; //The current head needs a next-pointer to new link...
+			n->_prev = _head; //And the new link needs pointer to current head.
 		}
+		else
+			_tail = n; //If the list is empty, the new link will also be the tail of the chain.
 
 		_head = n;
 		
@@ -29,12 +32,14 @@ namespace efiilj
 	bool DoublyLinkedList<T>::Remove(int index)
 	{
 		Node* n = GetNode(index);
+
 		if (n != nullptr)
 		{
-			_count--;
 			RemoveNode(n);
+			_count--;
 			return true;
 		}
+
 		return false;
 	}
 
@@ -44,8 +49,8 @@ namespace efiilj
 		Node* n = GetNode(val);
 		if (n != nullptr)
 		{
-			_count--;
 			RemoveNode(n);
+			_count--;
 			return true;
 		}
 		return false;
@@ -70,25 +75,27 @@ namespace efiilj
 	{
 		Node* n = _head;
 
-		for (int i = 0; i < _count; i++)
+		for (int i = 0; i < _count; i++) //Iterate list until a match is found.
 		{
 			if (n->_value == val)
 				return n;
+
+			n = n->_prev;
 		}
 
-		return nullptr;
+		return nullptr; //Return nullptr if no match is found.
 	}
 
 	template<typename T>
 	typename DoublyLinkedList<T>::Node* DoublyLinkedList<T>::GetNode(int index) const
 	{
-		if (index < 0 || index > _count - 1)
+		if (index < 0 || index > _count - 1) //Return nullptr if out of range; may be better to throw?
 			return nullptr;
 		else
 		{
 			Node* n = _head;
 
-			for (int i = 0; i < index; i++)
+			for (int i = 0; i < index; i++) //Iterate to requested index and return node pointer.
 			{
 				n = n->_prev;
 			}
@@ -100,24 +107,24 @@ namespace efiilj
 	template<typename T>
 	inline void DoublyLinkedList<T>::RemoveNode(Node* node)
 	{
-		if (_count <= 1)
+		if (_count <= 1) //If the list is now empty, no tail and no head remains.
 		{
 			_head = nullptr;
 			_tail = nullptr;
 		}
 		else
 		{
-			if (node == _head)
+			if (node == _head) //Assign a new head if this is the current head.
 			{
 				node->_prev->_next = nullptr;
 				_head = node->_prev;
 			}
-			else if (node == _tail)
+			else if (node == _tail) //Assign a new tail if this is the current tail.
 			{
 				node->_next->_next = nullptr;
 				_tail = node->_next;
 			}
-			else
+			else //Update neighbouring node pointers if this is in the middle of the chain.
 			{
 				node->_next->_prev = node->_prev;
 				node->_prev->_next = node->_next;
@@ -134,8 +141,6 @@ namespace efiilj
 	}
 
 	template <typename T>
-	DoublyLinkedList<T>::~DoublyLinkedList()
-	{
-	}
+	DoublyLinkedList<T>::~DoublyLinkedList() { }
 
 }

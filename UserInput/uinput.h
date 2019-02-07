@@ -9,17 +9,21 @@
 namespace efiilj
 {
 
-	template<typename S, typename T, typename = void>
-	struct is_stream_extractable : std::false_type {};
+	//Type trait used for testing which types can be used in Input template.
 
+	template<typename S, typename T, typename = void> 
+	struct is_stream_extractable : std::false_type {}; 
+
+	//Use decltype to test stream operation, "true" if object can be stream extracted.
 	template<typename S, typename T>
 	struct is_stream_extractable<S, T,
-		std::void_t<  decltype(std::declval<S&>() >> std::declval<T>())  > >
+		std::void_t<  decltype(std::declval<S&>() >> std::declval<T>())>> 
 		: std::true_type {};
 
 	template<typename S, typename T, typename = void>
 	struct is_stream_insertable : std::false_type {};
 
+	//Use decltype to test stream operation, "true" if object can be stream inserted.
 	template<typename S, typename T>
 	struct is_stream_insertable<S, T,
 		std::void_t<  decltype(std::declval<S&>() << std::declval<T>())  > >
@@ -29,18 +33,20 @@ namespace efiilj
 	class UserInput
 	{
 	private:
-		std::string _error;
+		std::string _error;		//Error to be printed when user enters an invalid input (unused?)
 		std::string _prompt;
-		std::string _query;
-		bool _state;
+		std::string _query;		//Query/title to be printed once.
+		bool _state;			//Has the input been converted successfully?
 		T _value, _min, _max;
 
-		bool Validate(std::string input);
+		bool Validate(std::string input); //Check if input is valid in the current context.
 
+		//SFINAE: Use this variant if T is arithmetic (can use greater-than/smaller-than operators).
 		template<typename U = T>
 		typename std::enable_if<std::is_arithmetic<U>::value, bool>::type
 			TestLimits() { return (_value >= _min && _value <= _max); }
 
+		//SFINAE: If T is not arithmetic, TestLimits always returns true.
 		template<typename U = T>
 		typename std::enable_if<!std::is_arithmetic<U>::value, bool>::type
 			TestLimits() { return true; }
@@ -48,9 +54,11 @@ namespace efiilj
 	public:
 		UserInput(std::string query, std::string prompt);
 
+		//Constructor only available when template is compiled for an arithmetic type.
 		template <typename = std::enable_if_t<std::is_arithmetic<T>::value>>
 		UserInput(std::string query, std::string prompt, T min, T max);
 
+		//Limits setter only available when compiled for arithmetic type.
 		template <typename = std::enable_if_t<std::is_arithmetic<T>::value>>
 		inline void Limits(T min, T max)
 		{
@@ -58,9 +66,9 @@ namespace efiilj
 			_max = max;
 		}
 
-		std::string exit;
+		std::string exit; //If this is set, the user can enter it to exit the query.
 
-		bool Show();
+		bool Show(); //Show the query until a valid input is given, or user exits with exit string.
 
 		T Value() { return _value; };
 
@@ -72,5 +80,6 @@ namespace efiilj
 	};
 }
 
+//Include template implementation file (for organization purposes).
 #include "uinput_impl.h"
 
