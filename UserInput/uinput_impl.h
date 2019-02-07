@@ -1,6 +1,5 @@
 #pragma once
 
-#include "stdafx.h"
 #include "uinput.h"
 
 #include <typeinfo>
@@ -17,13 +16,12 @@ namespace efiilj
 
 		_state = !ss.fail();
 		return _state;
-
 	}
 
 	template<typename T>
 	UserInput<T>::UserInput(std::string query, std::string prompt) : _query(query), _prompt(prompt)
 	{
-		static_assert(is_streamable<T>, "Type is not streamable");
+		static_assert(is_stream_extractable<std::stringstream, T>, "Type is not streamable");
 
 		_state = false;
 	}
@@ -59,21 +57,7 @@ namespace efiilj
 	}
 
 	template<typename T>
-	bool UserInput<T>::operator == (bool state)
-	{
-		return _state;
-	}
-
-	template<typename T>
-	bool UserInput<T>::operator!=(bool state)
-	{
-		return !_state;
-	}
-
-	template<typename T>
-	UserInput<T>::~UserInput()
-	{
-	}
+	UserInput<T>::~UserInput() { }
 
 }
 

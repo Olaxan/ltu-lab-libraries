@@ -13,8 +13,6 @@ namespace efiilj
 	{
 		std::cout << "\n";
 
-		int select;
-
 		while (true)
 		{
 			if (title.length() > 0)
