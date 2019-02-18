@@ -15,7 +15,7 @@ namespace efiilj
 	}
 
 	template <typename T>
-	void SortedArray<T>::AddAt(int index, T value)
+	void SortedArray<T>::InsertAt(int index, T value)
 	{
 		///Expand array by one, and move existing elements as required. Then, add new element.
 		Resize(_count + 1);
@@ -88,11 +88,11 @@ namespace efiilj
 		{
 			if (descending ^ Comparator(_items[i], value))
 			{
-				AddAt(i, value);
+				InsertAt(i, value);
 				return;
 			}
 		}
-		AddAt(_count, value);
+		InsertAt(_count, value);
 	}
 
 	template <typename T>
@@ -108,12 +108,6 @@ namespace efiilj
 			else
 				i++;
 		}
-	}
-
-	template<typename T>
-	inline void SortedArray<T>::Remove(int index)
-	{
-		Remove(GetAt(index));
 	}
 
 	template <typename T>

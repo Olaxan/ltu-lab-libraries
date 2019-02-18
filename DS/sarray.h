@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <initializer_list>
 
 namespace efiilj
 {
@@ -12,7 +13,7 @@ namespace efiilj
 		T* _items;
 		int _count;
 
-		void AddAt(int index, T value);
+		void InsertAt(int index, T value);
 		void RemoveAt(int index);
 		T GetAt(int index) const;
 
@@ -21,11 +22,18 @@ namespace efiilj
 	public:
 
 		SortedArray();
+		SortedArray(std::initializer_list<T> il)
+		{
+			_count = il.size();
+			_items = new T[_count];
+			memcpy_s(_items, _count * sizeof(T), il.begin(), _count * sizeof(T));
+		}
 
 		//Comparator determines manner of sorting the array.
 		//Should return 'true' if left-hand is greater than right-hand.
 		//Use for data types where custom comparison is necessary.
 		bool(*Comparator)(T a, T b) = [](T a, T b) -> bool { return a > b; };
+		enum Algorithm { A_SORT, B_SORT };
 
 		//Default: false - items in ascending order.
 		bool descending = false;
@@ -34,7 +42,6 @@ namespace efiilj
 		bool Exists(T value) const;
 		void Insert(T value);
 		void Remove(T value);
-		void Remove(int index);
 
 		std::string ToString() const;
 		int Count() const;
