@@ -36,15 +36,15 @@
     <ClInclude Include="dsal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="dsal_impl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="dummy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="dsal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

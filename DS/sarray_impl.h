@@ -15,6 +15,14 @@ namespace efiilj
 	}
 
 	template <typename T>
+	SortedArray<T>::SortedArray(std::initializer_list<T> il)
+	{
+		_count = il.size();
+		_items = new T[_count];
+		memcpy_s(_items, _count * sizeof(T), il.begin(), _count * sizeof(T));
+	}
+
+	template <typename T>
 	void SortedArray<T>::InsertAt(int index, T value)
 	{
 		///Expand array by one, and move existing elements as required. Then, add new element.

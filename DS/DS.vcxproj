@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="dsal.h" />
+    <ClInclude Include="dsal_impl.h" />
     <ClInclude Include="lnklist_d.h" />
     <ClInclude Include="lnklist_d_impl.h" />
     <ClInclude Include="sarray.h" />
@@ -156,7 +157,6 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="dsal.cpp" />
     <ClCompile Include="dummy.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

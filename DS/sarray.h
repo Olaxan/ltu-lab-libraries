@@ -22,18 +22,13 @@ namespace efiilj
 	public:
 
 		SortedArray();
-		SortedArray(std::initializer_list<T> il)
-		{
-			_count = il.size();
-			_items = new T[_count];
-			memcpy_s(_items, _count * sizeof(T), il.begin(), _count * sizeof(T));
-		}
+		SortedArray(std::initializer_list<T>);
 
 		//Comparator determines manner of sorting the array.
 		//Should return 'true' if left-hand is greater than right-hand.
 		//Use for data types where custom comparison is necessary.
 		bool(*Comparator)(T a, T b) = [](T a, T b) -> bool { return a > b; };
-		enum Algorithm { A_SORT, B_SORT };
+		enum Algorithm { INSERTION_MERGE, BINARY_MERGE };
 
 		//Default: false - items in ascending order.
 		bool descending = false;
