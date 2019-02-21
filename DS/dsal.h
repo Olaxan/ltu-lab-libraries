@@ -7,7 +7,7 @@ namespace efiilj
 	{
 	private:
 		static void Swap(T& a, T& b);
-		static void Merge(T* arr1, int len1, T* arr2, int len2);
+		static void RightShift(T* arr, int count, int index);
 	public:
 		static int BinaryFindIndex(T value, T* arr, int count);
 		static void PrintArray(T* arr, int count);

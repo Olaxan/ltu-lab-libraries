@@ -14,11 +14,11 @@ namespace efiilj
 	}
 
 	template<typename T>
-	inline void Algorithm<T>::Merge(T* arr1, int len1, T* arr2, int len2)
+	inline void Algorithm<T>::RightShift(T* arr, int count, int index)
 	{
-		for (int i = len2 - 1; i >= 0; i--)
+		for (int k = count; k > index; k--)
 		{
-
+			arr[k] = arr[k - 1];
 		}
 	}
 
@@ -57,7 +57,7 @@ namespace efiilj
 		{
 			std::cout << arr[i] << ", ";
 		}
-		std::cout << arr[count - 1] << "]\n";
+		std::cout << arr[count - 1] << "]";
 	}
 
 	template <typename T>
@@ -91,12 +91,7 @@ namespace efiilj
 			index = BinaryFindIndex(arr[i], newArr, i);
 
 			if (index < i)
-			{
-				for (int k = count; k > index; k--)
-				{
-					newArr[k] = newArr[k - 1];
-				} 
-			}
+				RightShift(newArr, count, index);
 
 			newArr[index] = arr[i];
 		}
@@ -108,11 +103,8 @@ namespace efiilj
 	template<typename T>
 	inline void Algorithm<T>::BinaryMergeSort(T* arr, int count, int k)
 	{
-		int lowerMid = (count + 1) / 2;
-		int upperMid = count / 2;
-
-		/*int lowerMid = count / 2;
-		int upperMid = (count + 1) / 2;*/
+		int countA = (count + 1) / 2;
+		int countB = count / 2;
 
 		if (count <= k)
 		{
@@ -120,15 +112,12 @@ namespace efiilj
 		}
 		else
 		{
-			BinaryMergeSort(&arr[0], lowerMid, k);
-			BinaryMergeSort(&arr[upperMid], count - upperMid, k); //ob1?
+			BinaryMergeSort(&arr[0], countA, k);
+			BinaryMergeSort(&arr[countA], countB, k); //ob1?
 
-			/*T* newArr = new T[count + 1];
-			std::merge(arr, arr + lowerMid - 1, arr + upperMid, arr + count - 1, newArr);
-			memmove_s(arr, count * sizeof(T), newArr, count * sizeof(T));
-			delete[] newArr;*/
-			
-			//Merge(&arr[0], lowerMid, &arr[upperMid], count - upperMid);
+			T* newArr = new T[count + 1];
+
+			std::inplace_merge(&arr[0], &arr[countA], &arr[count]);
 		}
 	}
 
