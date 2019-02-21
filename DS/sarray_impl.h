@@ -20,6 +20,7 @@ namespace efiilj
 		_count = il.size();
 		_items = new T[_count];
 		memcpy_s(_items, _count * sizeof(T), il.begin(), _count * sizeof(T));
+		efiilj::Algorithm<T>::BinaryMergeSort(_items, _count, 10);
 	}
 
 	template <typename T>
