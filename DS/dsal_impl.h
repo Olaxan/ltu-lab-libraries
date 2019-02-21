@@ -113,9 +113,7 @@ namespace efiilj
 		else
 		{
 			BinaryMergeSort(&arr[0], countA, k);
-			BinaryMergeSort(&arr[countA], countB, k); //ob1?
-
-			T* newArr = new T[count + 1];
+			BinaryMergeSort(&arr[countA], countB, k);
 
 			std::inplace_merge(&arr[0], &arr[countA], &arr[count]);
 		}
@@ -124,6 +122,19 @@ namespace efiilj
 	template<typename T>
 	inline void Algorithm<T>::InsertionMergeSort(T* arr, int count, int k)
 	{
+		int countA = (count + 1) / 2;
+		int countB = count / 2;
 
+		if (count <= k)
+		{
+			BinaryInsertionSort(arr, count);
+		}
+		else
+		{
+			InsertionMergeSort(&arr[0], countA, k);
+			InsertionMergeSort(&arr[countA], countB, k);
+
+			std::inplace_merge(&arr[0], &arr[countA], &arr[count]);
+		}
 	}
 }
