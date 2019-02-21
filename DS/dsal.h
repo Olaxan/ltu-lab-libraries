@@ -17,6 +17,7 @@ namespace efiilj
 		static void BinaryInsertionSort(T* first, int count);
 		static void BinaryMergeSort(T* first, int count, int k);
 		static void InsertionMergeSort(T* first, int count, int k);
+		static void CombinedMergeSort(T* first, int count, int k);
 	};
 }
 

@@ -158,4 +158,25 @@ namespace efiilj
 			std::inplace_merge(&arr[0], &arr[countA], &arr[count]);		// Merge subarrays using standard merging algorithm.
 		}
 	}
+
+	template<typename T>
+	inline void Algorithm<T>::CombinedMergeSort(T* arr, int count, int k)
+	{
+		/// A merge sort implementation using Insertion Sort AND Binary Insertion sort when subproblems become sufficiently small.
+
+		int countA = (count + 1) / 2;
+		int countB = count / 2;
+
+		if (count <= k)
+		{
+			BinaryInsertionSort(arr, count);
+		}
+		else
+		{
+			InsertionMergeSort(&arr[0], countA, k);			// Recursively sort A and B half of array using Insertion Sort.
+			BinaryMergeSort(&arr[countA], countB, k);
+
+			std::inplace_merge(&arr[0], &arr[countA], &arr[count]);		// Merge subarrays using standard merging algorithm.
+		}
+	}
 }
