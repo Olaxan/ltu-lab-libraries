@@ -1,4 +1,5 @@
-#include "stdafx.h"
+#pragma once
+
 #include "menu.h"
 #include "uinput.h"
 
@@ -7,9 +8,11 @@
 namespace efiilj
 {
 
-	Menu::Menu(std::string title, std::string prompt) : title(title), prompt(prompt) { }
+	template <typename T>
+	Menu<T>::Menu(std::string title, std::string prompt) : title(title), prompt(prompt) { }
 
-	bool Menu::Show() const
+	template <typename T>
+	bool Menu<T>::Show() const
 	{
 		///Show menu, loop until the user exits from the top-level menu.
 
@@ -23,7 +26,7 @@ namespace efiilj
 			}
 
 			ListItems();
-			
+
 			UserInput<int> input = UserInput<int>("", prompt, 1 - allowExit, _items.size());
 
 			if (input.Show())
@@ -38,18 +41,27 @@ namespace efiilj
 		}
 	}
 
-	void Menu::AddItem(std::string name, bool(*func)())
+	template <typename T>
+	void Menu<T>::AddItem(std::string name, bool(*func)())
 	{
 		_items.push_back(MenuItem(this, name, func));
 	}
 
-	void Menu::AddItem(std::string name, Menu* subMenu)
+	template<typename T>
+	inline void Menu<T>::AddItem(std::string name, bool(*func)(T data), T data)
+	{
+		_items.push_back(MenuItem(this, name, func, data));
+	}
+
+	template <typename T>
+	void Menu<T>::AddItem(std::string name, Menu* subMenu)
 	{
 		subMenu->_isSubmenu = true;
 		_items.push_back(MenuItem(this, name, subMenu));
 	}
 
-	void Menu::ListItems() const
+	template <typename T>
+	void Menu<T>::ListItems() const
 	{
 		int i = 1;
 		for (auto it = _items.begin(); it != _items.end(); it++)
@@ -66,6 +78,7 @@ namespace efiilj
 		}
 	}
 
-	Menu::~Menu() { }
+	template <typename T>
+	Menu<T>::~Menu() { }
 }
 

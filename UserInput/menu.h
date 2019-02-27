@@ -6,6 +6,7 @@
 namespace efiilj
 {
 
+	template <typename T = int>
 	class Menu
 	{
 	private:
@@ -16,12 +17,16 @@ namespace efiilj
 			Menu* subMenu;
 			const Menu* parent;
 			bool(*func)();
+			bool(*func_T)(T data);
 			bool hasSubmenu;
+			bool hasData;
+			T data;
 
 		public:
 			MenuItem();
 			MenuItem(const Menu* parent, std::string name, bool(*func)());
 			MenuItem(const Menu* parent, std::string name, Menu* subMenu);
+			MenuItem(const Menu* parent, std::string name, bool(*func)(T data), T data);
 
 			std::string name;
 
@@ -41,6 +46,7 @@ namespace efiilj
 		bool allowExit = true;	//Allow exit with '0'.
 
 		void AddItem(std::string name, bool(*func)());	//Add a function pointer to the menu.
+		void AddItem(std::string name, bool(*func)(T data), T data);
 		void AddItem(std::string name, Menu* subMenu);	//Add a submenu to the menu.
 		void RemoveItem(std::string item); //TODO?
 		void ListItems() const;
@@ -55,3 +61,5 @@ namespace efiilj
 
 }
 
+#include "menu_impl.h"
+#include "menuitem_impl.h"
