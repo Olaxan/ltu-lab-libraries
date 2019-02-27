@@ -12,6 +12,7 @@ namespace efiilj
 		static void PrintArray(T* arr, int count);
 		
 		static int BinaryFindIndex(T value, T* arr, int count);
+		static bool IsSorted(T* arr, int count, bool descending = false);
 		
 		static void InsertionSort(T* arr, int count);
 		static void BinaryInsertionSort(T* first, int count);

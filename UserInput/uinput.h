@@ -56,7 +56,7 @@ namespace efiilj
 
 		//Constructor only available when template is compiled for an arithmetic type.
 		template <typename = std::enable_if_t<std::is_arithmetic<T>::value>>
-		UserInput(std::string query, std::string prompt, T min, T max);
+		UserInput(std::string query, std::string prompt, T min = INT_MIN, T max = INT_MAX);
 
 		//Limits setter only available when compiled for arithmetic type.
 		template <typename = std::enable_if_t<std::is_arithmetic<T>::value>>

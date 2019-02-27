@@ -69,6 +69,18 @@ namespace efiilj
 		return middle;					// Returns the index of a found value, or an index where such a value could be inserted.
 	}
 
+	template<typename T>
+	inline bool Algorithm<T>::IsSorted(T * arr, int count, bool descending)
+	{
+		for (int i = 0; i < count - 1; i++)
+		{
+			if ((arr[i + 1] < arr[i]) ^ descending)
+				return false;
+		}
+
+		return true;
+	}
+
 	template <typename T>
 	inline void Algorithm<T>::InsertionSort(T* arr, int count)
 	{
@@ -77,6 +89,9 @@ namespace efiilj
 		/// Runs in n2 worst-case time.
 
 		if (count <= 1)
+			return;
+
+		if (IsSorted(arr, count))
 			return;
 
 		for (int i = 0; i < count; i++)
@@ -98,6 +113,9 @@ namespace efiilj
 		int index = 0;
 
 		if (count <= 1)
+			return;
+
+		if (IsSorted(arr, count))
 			return;
 
 		T* newArr = new T[count];
@@ -122,12 +140,15 @@ namespace efiilj
 		/// A merge sort implementation using Binary Insertion Sort when subproblems become sufficiently small.
 		/// Not guaranteed to be ordered. Runs in XXX time.
 
+		if (IsSorted(arr, count))
+			return;
+
 		int countA = (count + 1) / 2;
 		int countB = count / 2;
 
 		if (count <= k)
 		{
-			InsertionSort(arr, count);
+			BinaryInsertionSort(arr, count);
 		}
 		else
 		{
@@ -143,12 +164,15 @@ namespace efiilj
 	{
 		/// A merge sort implementation using Insertion Sort when subproblems become sufficiently small.
 
+		if (IsSorted(arr, count))
+			return;
+
 		int countA = (count + 1) / 2;
 		int countB = count / 2;
 
 		if (count <= k)
 		{
-			BinaryInsertionSort(arr, count);
+			InsertionSort(arr, count);
 		}
 		else
 		{
@@ -163,6 +187,9 @@ namespace efiilj
 	inline void Algorithm<T>::CombinedMergeSort(T* arr, int count, int k)
 	{
 		/// A merge sort implementation using Insertion Sort AND Binary Insertion sort when subproblems become sufficiently small.
+
+		if (IsSorted(arr, count))
+			return;
 
 		int countA = (count + 1) / 2;
 		int countB = count / 2;
