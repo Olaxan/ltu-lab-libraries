@@ -17,13 +17,16 @@
 namespace efiilj
 {
 	template <typename T>
-	Menu<T>::MenuItem::MenuItem() : parent(nullptr), name(""), hasSubmenu(false), hasData(false) { }
+	inline Menu<T>::MenuItem::MenuItem() 
+		: parent(nullptr), name(""), hasSubmenu(false), hasData(false) { }
 
 	template <typename T>
-	Menu<T>::MenuItem::MenuItem(const Menu* parent, std::string name, bool(*func)()) : parent(parent), name(name), func(func), hasSubmenu(false), hasData(false) { }
+	inline Menu<T>::MenuItem::MenuItem(const Menu* parent, std::string name, bool(*func)())
+		: parent(parent), name(name), func(func), hasSubmenu(false), hasData(false) { }
 
 	template <typename T>
-	Menu<T>::MenuItem::MenuItem(const Menu* parent, std::string name, Menu* subMenu) : parent(parent), name(name), subMenu(subMenu), hasSubmenu(true), hasData(false) { }
+	inline Menu<T>::MenuItem::MenuItem(const Menu* parent, std::string name, Menu* subMenu) 
+		: parent(parent), name(name), subMenu(subMenu), hasSubmenu(true), hasData(false) { }
 
 	template<typename T>
 	inline Menu<T>::MenuItem::MenuItem(const Menu* parent, std::string name, bool(*func)(T data), T data)
