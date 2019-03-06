@@ -108,7 +108,7 @@ namespace efiilj
 	inline void Algorithm<T>::BinaryInsertionSort(T* arr, int count)
 	{
 		///A not-in-place sorting algorithm using binary searching to insert values in secondary array.
-		///Not currently guaranteed to be ordered. Runs in XXX time.
+		///Not currently guaranteed to be ordered. Runs in O(n) worst case time.
 
 		int index = 0;
 
